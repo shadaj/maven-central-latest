@@ -3,5 +3,9 @@
   "name": "maven-central-latest",
   "devDependencies": {
     "netlify-lambda": "^1.0.2"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "node-fetch": "^2.2.0"
   }
 }
