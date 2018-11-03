@@ -28,11 +28,20 @@ exports.handler = function(event, context, callback) {
       return a.date < b.date ? 1 : -1;
     })[0].version;
 
-    console.log(event.queryStringParameters.format);
-    callback(null, {
-      statusCode: 200,
-      body: event.queryStringParameters.format.replace("VERSION", latest).replace(/\%20/g, " ").replace(/\%22/g, "\"")
-    });
+    if (event.queryStringParameters.format) {
+      callback(null, {
+        statusCode: 200,
+        body: event.queryStringParameters.format.replace("VERSION", latest).replace(/\%20/g, " ").replace(/\%22/g, "\"")
+      });
+    } else {
+      callback(null, {
+        statusCode: 302,
+        headers: {
+          Location: event.queryStringParameters.formatRedirect.replace("VERSION", latest).replace(/\%20/g, " ").replace(/\%22/g, "\""),
+        },
+        body: ""
+      });
+    }
   }).catch(e => {
     console.log(e);
   });
