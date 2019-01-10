@@ -31,13 +31,13 @@ exports.handler = function(event, context, callback) {
     if (event.queryStringParameters.format) {
       callback(null, {
         statusCode: 200,
-        body: event.queryStringParameters.format.replace("VERSION", latest).replace(/\%20/g, " ").replace(/\%22/g, "\"")
+        body: event.queryStringParameters.format.replace("VERSIONDOUBLEDASHED", latest.replace(/\-/g, "--")).replace("VERSION", latest).replace(/\%20/g, " ").replace(/\%22/g, "\"")
       });
     } else {
       callback(null, {
         statusCode: 302,
         headers: {
-          Location: event.queryStringParameters.formatRedirect.replace("VERSION", latest).replace(/\%20/g, " ").replace(/\%22/g, "\""),
+          Location: event.queryStringParameters.formatRedirect.replace("VERSIONDOUBLEDASHED", latest.replace(/\-/g, "--")).replace("VERSION", latest).replace(/\%20/g, " ").replace(/\%22/g, "\""),
         },
         body: ""
       });
