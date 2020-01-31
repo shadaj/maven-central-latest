@@ -4,7 +4,7 @@ const cheerio = require('cheerio')
 exports.handler = function(event, context, callback) {
   const org = event.queryStringParameters.org;
   const libraryName = event.queryStringParameters.name;
-  const centralPagePath = `http://central.maven.org/maven2/${org.split('.').join('/')}/${libraryName}/`;
+  const centralPagePath = `https://repo1.maven.org/maven2/${org.split('.').join('/')}/${libraryName}/`;
 
   fetch(centralPagePath).then(res => res.text()).then(t => {
     const $ = cheerio.load(t);
