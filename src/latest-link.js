@@ -31,6 +31,9 @@ exports.handler = function(event, context, callback) {
     if (event.queryStringParameters.format) {
       callback(null, {
         statusCode: 200,
+        headers: {
+          ETag: latest
+        },
         body: event.queryStringParameters.format.replace("VERSIONDOUBLEDASHED", latest.replace(/\-/g, "--")).replace("VERSION", latest).replace(/\%20/g, " ").replace(/\%22/g, "\"")
       });
     } else {
@@ -38,8 +41,9 @@ exports.handler = function(event, context, callback) {
         statusCode: 302,
         headers: {
           Location: event.queryStringParameters.formatRedirect.replace("VERSIONDOUBLEDASHED", latest.replace(/\-/g, "--")).replace("VERSION", latest).replace(/\%20/g, " ").replace(/\%22/g, "\""),
+          ETag: latest
         },
-        body: ""
+        body: "",
       });
     }
   }).catch(e => {
